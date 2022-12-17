@@ -8,7 +8,8 @@ text_functions.lobby_text()
 text_functions.entrance_options()
 choice_to_enter = input()
 
-# The while loop will run while the input is not "q" as in quit the program. They are then given one more option to quit, or to select a meal. If the answer isn't one of the options, and invalid answer will be printed.
+# The while loop will run while the input is not "q" as in quit the program. They are then given one more option to quit, or to select a meal. 
+# If the answer isn't one of the options, and invalid answer will be printed.
 
 while choice_to_enter != "q":
 
