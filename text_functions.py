@@ -1,5 +1,6 @@
 # I imported the time library to use the time.sleep function at the beginning of the program.
 
+import os
 import time
 
 # I imported all of the food classes I needed from the food classes file to make instantiations with the meal name, the food or drink name, and the price of that item. For each meal there is a food class, and a drink class
@@ -94,7 +95,7 @@ dinner_drink10 = Dinner_Drink("Dinner", "10 - ☕  Hot Chocolate", 4)
 # This is the function that controlls the inventory of the user. It has the ability to add, remove, view the cart, or checkout. 
 # It takes the list of whichever meal was chosen and an empty dictionary which will be the inventory, with the item as the key, and the quantity of that item as the value. It also takes the add-remove-viewcart-checkout (arvc) parameter from the beginning which will we set to "a" as in add when the function starts.
 
-def inventory_controller(meal_list, inventory_dict, arvc):
+def inventory_controller(meal_list, inventory_dict, arvc, meal):
 
 # This while loop, which runs only when the user has not chosen to checkout, it can add items, remove items, view cart, or checkout.
 
@@ -109,6 +110,14 @@ def inventory_controller(meal_list, inventory_dict, arvc):
     if arvc == "a":
       inventory_choice = input("Enter the food or drink: ")
       while inventory_choice not in meal_list:
+        os.system("cls")
+
+        if meal == "b":
+          breakfast_choices()
+        elif meal == "l":
+          lunch_choices()
+        else:
+          dinner_choices()
         print("\ninvalid menu choice. Try again")
         inventory_choice = input("Enter the food or drink: ")
 
@@ -116,6 +125,14 @@ def inventory_controller(meal_list, inventory_dict, arvc):
 
       for i in range(len(meal_list)):
         if inventory_choice == meal_list[i]:
+          os.system("cls")
+
+          if meal == "b":
+            breakfast_choices()
+          elif meal == "l":
+            lunch_choices()
+          else:
+            dinner_choices()
           meal_list[i + 2] += 1
           inventory_dict.update({meal_list[i - 1] : meal_list[i + 2]})
           print("\nItem successfully added")
@@ -127,6 +144,15 @@ def inventory_controller(meal_list, inventory_dict, arvc):
     elif arvc == "r":
       inventory_choice = input("Enter the food or drink: ")
       while inventory_choice not in meal_list:
+        os.system("cls")
+
+        if meal == "b":
+          breakfast_choices()
+        elif meal == "l":
+          lunch_choices()
+        else:
+          dinner_choices()
+
         print("\ninvalid menu choice. Try again")
         inventory_choice = input("Enter the food or drink: ")
 
@@ -134,6 +160,15 @@ def inventory_controller(meal_list, inventory_dict, arvc):
 
       for i in range(len(meal_list)):
         if inventory_choice == meal_list[i]:
+          os.system("cls")
+
+          if meal == "b":
+            breakfast_choices()
+          elif meal == "l":
+            lunch_choices()
+          else:
+            dinner_choices()
+
           if meal_list[i + 2] >= 1:
             meal_list[i + 2] -= 1
             inventory_dict.update({meal_list[i - 1] : meal_list[i + 2]})
@@ -148,9 +183,20 @@ def inventory_controller(meal_list, inventory_dict, arvc):
 # If the user chooses to view the cart, "items and quantities" will be printed, and then the keys, followed by the values will be printed from the inventory dictionary's items.
         
     elif arvc == "v":
+      os.system("cls")
+
+      if meal == "b":
+        breakfast_choices()
+      elif meal == "l":
+        lunch_choices()
+      else:
+        dinner_choices()
       print("\nItems and Quantities\n--------------------")
       for k, v in inventory_dict.items():
-        print(k[4::],  v)
+        if int(k[:2]) >= 10:
+          print(k[5::], v)
+        else:
+          print(k[4::],  v)
 
 # After the user either adds, removes or views their cart, they will be asked to choose any of the 4 choices again. The arvc text function can be looked at below, it only has print statements in it. 
 
@@ -160,12 +206,22 @@ def inventory_controller(meal_list, inventory_dict, arvc):
 # If the user did not enter any of the 4 options, they will be asked until they do so.
 
     while arvc != "a" and arvc != "r" and arvc != "v" and arvc != "c":
+      os.system("cls")
+
+      if meal == "b":
+        breakfast_choices()
+      elif meal == "l":
+        lunch_choices()
+      else:
+        dinner_choices()
       print("\ninvalid answer. try again")
       arvc_text()
       arvc = input("Enter: ")
 
 # If their choice is c, a subtotal variable will be made, which will be added to by the quantity of any found item multiplied by its price. Once all of prices have been added, if the price is anything other than 0, a receipt will be printed. The loop will then stop and so will the function becuase arvc will be set to "c". However if subtotal remains to be 0, arvc will be set to "a", and the user will be prompted to add an item to their cart before checking out.
     if arvc == "c":
+      os.system("cls")
+
       subtotal = 0
       for i in range(len(meal_list)):
         for d in inventory_dict.keys():
@@ -173,6 +229,12 @@ def inventory_controller(meal_list, inventory_dict, arvc):
             subtotal += meal_list[i + 2] * meal_list[i + 3]
       if subtotal == 0:
         arvc = "a"
+        if meal == "b":
+          breakfast_choices()
+        elif meal == "l":
+          lunch_choices()
+        else:
+          dinner_choices()
         print("\nYou are unable to checkout without having your order cost anything\nPlease select an item from the menu")
       else:
         print("\nORDER DETAILS\n-------------\n\nItems and Quantities\n--------------------")
@@ -205,7 +267,7 @@ def arvc_text():
 
 def breakfast_choices():
   print(f"\nBreakfast Food\n--------------\n{breakfast_food1.food_or_drink} ${breakfast_food1.price}\n{breakfast_food2.food_or_drink} ${breakfast_food2.price}\n{breakfast_food3.food_or_drink} ${breakfast_food3.price}\n{breakfast_food4.food_or_drink} ${breakfast_food4.price}\n{breakfast_food5.food_or_drink} ${breakfast_food5.price}\n{breakfast_food6.food_or_drink} ${breakfast_food6.price}\n{breakfast_food7.food_or_drink} ${breakfast_food7.price}\n{breakfast_food8.food_or_drink} ${breakfast_food8.price}\n{breakfast_food9.food_or_drink} ${breakfast_food9.price}\n{breakfast_food10.food_or_drink} ${breakfast_food10.price}\n\nBreakfast Drinks\n----------------\n{breakfast_drink1.food_or_drink} ${breakfast_drink1.price}\n{breakfast_drink2.food_or_drink} ${breakfast_drink2.price}\n{breakfast_drink3.food_or_drink} ${breakfast_drink3.price}\n{breakfast_drink4.food_or_drink} ${breakfast_drink4.price}\n{breakfast_drink5.food_or_drink} ${breakfast_drink5.price}\n{breakfast_drink6.food_or_drink} ${breakfast_drink6.price}\n{breakfast_drink7.food_or_drink} ${breakfast_drink7.price}\n{breakfast_drink8.food_or_drink} ${breakfast_drink8.price}\n{breakfast_drink9.food_or_drink} ${breakfast_drink9.price}\n{breakfast_drink10.food_or_drink} ${breakfast_drink10.price}")
-
+  
 def lunch_choices():
   print(f"\nLunch Food\n--------------\n{lunch_food1.food_or_drink} ${lunch_food1.price}\n{lunch_food2.food_or_drink} ${lunch_food2.price}\n{lunch_food3.food_or_drink} ${lunch_food3.price}\n{lunch_food4.food_or_drink} ${lunch_food4.price}\n{lunch_food5.food_or_drink} ${lunch_food5.price}\n{lunch_food6.food_or_drink} ${lunch_food6.price}\n{lunch_food7.food_or_drink} ${lunch_food7.price}\n{lunch_food8.food_or_drink} ${lunch_food8.price}\n{lunch_food9.food_or_drink} ${lunch_food9.price}\n{lunch_food10.food_or_drink} ${lunch_food10.price}\n\nLunch Drinks\n----------------\n{lunch_drink1.food_or_drink} ${lunch_drink1.price}\n{lunch_drink2.food_or_drink} ${lunch_drink2.price}\n{lunch_drink3.food_or_drink} ${lunch_drink3.price}\n{lunch_drink4.food_or_drink} ${lunch_drink4.price}\n{lunch_drink5.food_or_drink} ${lunch_drink5.price}\n{lunch_drink6.food_or_drink} ${lunch_drink6.price}\n{lunch_drink6.food_or_drink} ${lunch_drink6.price}\n{lunch_drink7.food_or_drink} ${lunch_drink7.price}\n{lunch_drink8.food_or_drink} ${lunch_drink8.price}\n{lunch_drink9.food_or_drink} ${lunch_drink9.price}\n{lunch_drink10.food_or_drink} ${lunch_drink10.price}")
 
@@ -243,7 +305,7 @@ def breakfast_inverntory_controller():
 
   breakfast_items_list = [breakfast_food1.food_or_drink, "f1", breakfast_food1.price, breakfast_food1_quantity, breakfast_food2.food_or_drink, "f2", breakfast_food2.price, breakfast_food2_quantity, breakfast_food3.food_or_drink, "f3", breakfast_food3.price, breakfast_food3_quantity, breakfast_food4.food_or_drink, "f4", breakfast_food4.price, breakfast_food4_quantity, breakfast_food5.food_or_drink, "f5", breakfast_food5.price, breakfast_food5_quantity, breakfast_food6.food_or_drink, "f6", breakfast_food6.price, breakfast_food6_quantity, breakfast_food7.food_or_drink, "f7", breakfast_food7.price, breakfast_food7_quantity, breakfast_food8.food_or_drink, "f8", breakfast_food8.price, breakfast_food8_quantity, breakfast_food9.food_or_drink, "f9", breakfast_food9.price, breakfast_food9_quantity, breakfast_food10.food_or_drink, "f10", breakfast_food10.price, breakfast_food10_quantity, breakfast_drink1.food_or_drink, "d1", breakfast_drink1.price, breakfast_drink1_quantity, breakfast_drink2.food_or_drink, "d2", breakfast_drink2.price, breakfast_drink2_quantity, breakfast_drink3.food_or_drink, "d3", breakfast_drink3.price, breakfast_drink3_quantity, breakfast_drink4.food_or_drink, "d4", breakfast_drink4.price, breakfast_drink4_quantity, breakfast_drink5.food_or_drink, "d5", breakfast_drink5.price, breakfast_drink5_quantity, breakfast_drink6.food_or_drink, "d6", breakfast_drink6.price, breakfast_drink6_quantity, breakfast_drink7.food_or_drink, "d7", breakfast_drink7.price, breakfast_drink7_quantity, breakfast_drink8.food_or_drink, "d8", breakfast_drink8.price, breakfast_drink8_quantity, breakfast_drink9.food_or_drink, "d9", breakfast_drink9.price, breakfast_drink9_quantity, breakfast_drink10.food_or_drink, "d10", breakfast_drink10.price, breakfast_drink10_quantity]
 
-  inventory_controller(breakfast_items_list, inventory_dict, arvc)
+  inventory_controller(breakfast_items_list, inventory_dict, arvc, "b")
 
 ########## Lunch inventory controller
 
@@ -276,7 +338,7 @@ def lunch_inverntory_controller():
 
   lunch_items_list = [lunch_food1.food_or_drink, "f1", lunch_food1.price, lunch_food1_quantity, lunch_food2.food_or_drink, "f2", lunch_food2.price, lunch_food2_quantity, lunch_food3.food_or_drink, "f3", lunch_food3.price, lunch_food3_quantity, lunch_food4.food_or_drink, "f4", lunch_food4.price, lunch_food4_quantity, lunch_food5.food_or_drink, "f5", lunch_food5.price, lunch_food5_quantity, lunch_food6.food_or_drink, "f6", lunch_food6.price, lunch_food6_quantity, lunch_food7.food_or_drink, "f7", lunch_food7.price, lunch_food7_quantity, lunch_food8.food_or_drink, "f8", lunch_food8.price, lunch_food8_quantity, lunch_food9.food_or_drink, "f9", lunch_food9.price, lunch_food9_quantity, lunch_food10.food_or_drink, "f10", lunch_food10.price, lunch_food10_quantity, lunch_drink1.food_or_drink, "d1", lunch_drink1.price, lunch_drink1_quantity, lunch_drink2.food_or_drink, "d2", lunch_drink2.price, lunch_drink2_quantity, lunch_drink3.food_or_drink, "d3", lunch_drink3.price, lunch_drink3_quantity, lunch_drink4.food_or_drink, "d4", lunch_drink4.price, lunch_drink4_quantity, lunch_drink5.food_or_drink, "d5", lunch_drink5.price, lunch_drink5_quantity, lunch_drink6.food_or_drink, "d6", lunch_drink6.price, lunch_drink6_quantity, lunch_drink7.food_or_drink, "d7", lunch_drink7.price, lunch_drink7_quantity, lunch_drink8.food_or_drink, "d8", lunch_drink8.price, lunch_drink8_quantity, lunch_drink9.food_or_drink, "d9", lunch_drink9.price, lunch_drink9_quantity, lunch_drink10.food_or_drink, "d10", lunch_drink10.price, lunch_drink10_quantity]
 
-  inventory_controller(lunch_items_list, inventory_dict, arvc)
+  inventory_controller(lunch_items_list, inventory_dict, arvc, "l")
 
 ########## Dinner inventory controller
 
@@ -309,4 +371,4 @@ def dinner_inverntory_controller():
 
   dinner_items_list = [dinner_food1.food_or_drink, "f1", dinner_food1.price, dinner_food1_quantity, dinner_food2.food_or_drink, "f2", dinner_food2.price, dinner_food2_quantity, dinner_food3.food_or_drink, "f3", dinner_food3.price, dinner_food3_quantity, dinner_food4.food_or_drink, "f4", dinner_food4.price, dinner_food4_quantity, dinner_food5.food_or_drink, "f5", dinner_food5.price, dinner_food5_quantity, dinner_food6.food_or_drink, "f6", dinner_food6.price, dinner_food6_quantity, dinner_food7.food_or_drink, "f7", dinner_food7.price, dinner_food7_quantity, dinner_food8.food_or_drink, "f8", dinner_food8.price, dinner_food8_quantity, dinner_food9.food_or_drink, "f9", dinner_food9.price, dinner_food9_quantity, dinner_food10.food_or_drink, "f10", dinner_food10.price, dinner_food10_quantity, dinner_drink1.food_or_drink, "d1", dinner_drink1.price, dinner_drink1_quantity, dinner_drink2.food_or_drink, "d2", dinner_drink2.price, dinner_drink2_quantity, dinner_drink3.food_or_drink, "d3", dinner_drink3.price, dinner_drink3_quantity, dinner_drink4.food_or_drink, "d4", dinner_drink4.price, dinner_drink4_quantity, dinner_drink5.food_or_drink, "d5", dinner_drink5.price, dinner_drink5_quantity, dinner_drink6.food_or_drink, "d6", dinner_drink6.price, dinner_drink6_quantity, dinner_drink7.food_or_drink, "d7", dinner_drink7.price, dinner_drink7_quantity, dinner_drink8.food_or_drink, "d8", dinner_drink8.price, dinner_drink8_quantity, dinner_drink9.food_or_drink, "d9", dinner_drink9.price, dinner_drink9_quantity, dinner_drink10.food_or_drink, "d10", dinner_drink10.price, dinner_drink10_quantity]
 
-  inventory_controller(dinner_items_list, inventory_dict, arvc)
+  inventory_controller(dinner_items_list, inventory_dict, arvc, "d")

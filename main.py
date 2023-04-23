@@ -12,6 +12,7 @@ choice_to_enter = input()
 # If the answer isn't one of the options, and invalid answer will be printed.
 
 while choice_to_enter != "q":
+  
 
   if choice_to_enter == "e":
     text_functions.meal_choice()
